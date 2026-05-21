@@ -5,6 +5,11 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
 
   if (uploadProvider === 'r2') {
     return {
+      'users-permissions': {
+        config: {
+          jwtSecret: env('JWT_SECRET'),
+        },
+      },
       upload: {
         config: {
           provider: 'aws-s3',
@@ -37,7 +42,13 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
     };
   }
 
-  return {};
+  return {
+    'users-permissions': {
+      config: {
+        jwtSecret: env('JWT_SECRET'),
+      },
+    },
+  };
 };
 
 export default config;
