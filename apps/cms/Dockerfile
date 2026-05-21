@@ -23,11 +23,11 @@ ENV NODE_ENV=production
 
 COPY package.json package-lock.json ./
 COPY apps/cms/package.json apps/cms/package.json
+COPY apps/cms/tsconfig.json apps/cms/tsconfig.json
 
 RUN npm ci --workspace apps/cms --include-workspace-root=false --omit=dev \
   && npm cache clean --force
 
-COPY --from=builder /app/apps/cms/config apps/cms/config
 COPY --from=builder /app/apps/cms/database apps/cms/database
 COPY --from=builder /app/apps/cms/dist apps/cms/dist
 COPY --from=builder /app/apps/cms/public apps/cms/public
