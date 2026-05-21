@@ -20,7 +20,6 @@
     "@strapi/provider-upload-aws-s3": "^5.46.0",
     "@strapi/strapi": "5.46.0",
     "ajv": "^8.20.0",
-    "better-sqlite3": "12.8.0",
     "pg": "^8.21.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
@@ -31,6 +30,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "better-sqlite3": "^12.8.0",
     "typescript": "^5"
   },
   "engines": {
