@@ -31,6 +31,7 @@ RUN npm ci --workspace apps/cms --include-workspace-root=false --omit=dev \
 COPY --from=builder /app/apps/cms/database apps/cms/database
 COPY --from=builder /app/apps/cms/dist apps/cms/dist
 COPY --from=builder /app/apps/cms/public apps/cms/public
+COPY --from=builder /app/apps/cms/src apps/cms/src
 COPY --from=builder /app/apps/cms/package.json apps/cms/package.json
 
 EXPOSE 1337
