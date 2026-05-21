@@ -1,0 +1,19 @@
+{
+  "name": "sinoample",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w apps/web",
+    "build": "npm run build -w apps/web",
+    "lint": "npm run lint -w apps/web",
+    "worker:dev": "npm run dev -w apps/worker",
+    "worker:deploy": "npm run deploy -w apps/worker",
+    "cms:dev": "npm run develop -w apps/cms",
+    "cms:build": "npm run build -w apps/cms"
+  },
+  "dependencies": {
+    "ajv": "^8.20.0"
+  }
+}

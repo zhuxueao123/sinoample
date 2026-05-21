@@ -1,0 +1,111 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "singularName": "product",
+    "pluralName": "products",
+    "displayName": "Product",
+    "description": "Vending machine products"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::product-category.product-category",
+      "inversedBy": "products"
+    },
+    "model_number": {
+      "type": "string"
+    },
+    "short_description": {
+      "type": "text"
+    },
+    "overview": {
+      "type": "richtext"
+    },
+    "cover_image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "gallery": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": ["images"]
+    },
+    "video_url": {
+      "type": "string"
+    },
+    "key_features": {
+      "type": "json"
+    },
+    "specifications": {
+      "type": "json"
+    },
+    "payment_options": {
+      "type": "json"
+    },
+    "capacity": {
+      "type": "string"
+    },
+    "cooling_heating_system": {
+      "type": "string"
+    },
+    "dimensions": {
+      "type": "string"
+    },
+    "weight": {
+      "type": "string"
+    },
+    "power_supply": {
+      "type": "string"
+    },
+    "screen_options": {
+      "type": "json"
+    },
+    "network_options": {
+      "type": "json"
+    },
+    "custom_branding_options": {
+      "type": "json"
+    },
+    "recommended_solutions": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::solution.solution",
+      "mappedBy": "recommended_products"
+    },
+    "is_featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "sort_order": {
+      "type": "integer",
+      "default": 0
+    },
+    "seo_title": {
+      "type": "string"
+    },
+    "seo_description": {
+      "type": "text"
+    },
+    "og_image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

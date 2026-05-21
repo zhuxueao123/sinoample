@@ -1,0 +1,31 @@
+name = "sinoample-api"
+main = "src/index.ts"
+compatibility_date = "2024-12-30"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "sinoample-prod"
+database_id = "064cc0df-eca3-4a0e-9e22-1c4016a8b5eb"
+
+[[env.preview.d1_databases]]
+binding = "DB"
+database_name = "sinoample-preview"
+database_id = "2770a7aa-42c0-461a-a18e-2dc9ac47c0a9"
+
+[vars]
+ZOHO_API_BASE_URL = "https://mail.zoho.com"
+ZOHO_ACCOUNT_ID = "replace-with-zoho-account-id"
+ZOHO_FROM_EMAIL = "noreply@sinoample.shop"
+DEFAULT_SALES_EMAIL = "sales@sinoample.shop"
+
+[env.preview.vars]
+ZOHO_API_BASE_URL = "https://mail.zoho.com"
+ZOHO_ACCOUNT_ID = "replace-with-zoho-account-id"
+ZOHO_FROM_EMAIL = "noreply@sinoample.shop"
+DEFAULT_SALES_EMAIL = "sales@sinoample.shop"
+
+# Secrets to set with wrangler secret put:
+# ADMIN_API_TOKEN
+# SYNC_SECRET
+# ZOHO_ACCESS_TOKEN
+# TURNSTILE_SECRET_KEY

@@ -1,0 +1,65 @@
+{
+  "kind": "singleType",
+  "collectionName": "site_settings",
+  "info": {
+    "singularName": "site-setting",
+    "pluralName": "site-settings",
+    "displayName": "Site Settings",
+    "description": "Global website settings"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "site_name": {
+      "type": "string",
+      "default": "Sino Ample"
+    },
+    "default_seo_title": {
+      "type": "string"
+    },
+    "default_seo_description": {
+      "type": "text"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "footer_logo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "contact_email": {
+      "type": "email"
+    },
+    "whatsapp": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "address": {
+      "type": "text"
+    },
+    "business_hours": {
+      "type": "string"
+    },
+    "social_links": {
+      "type": "json"
+    },
+    "default_og_image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "privacy_policy_content": {
+      "type": "richtext"
+    },
+    "terms_content": {
+      "type": "richtext"
+    }
+  }
+}

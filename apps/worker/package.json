@@ -1,0 +1,17 @@
+{
+  "name": "@sinoample/worker",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:migrate:local": "wrangler d1 migrations apply sinoample-preview --local",
+    "db:migrate:remote": "wrangler d1 migrations apply sinoample-prod --remote"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260519.1",
+    "typescript": "^5.7.2",
+    "wrangler": "^4.93.0"
+  }
+}

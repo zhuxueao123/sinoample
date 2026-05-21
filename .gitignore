@@ -1,0 +1,15 @@
+node_modules
+.next
+.open-next
+dist
+out
+.wrangler
+.strapi
+.tmp
+.env
+.env.*
+!.env.example
+!.env.cloudflare.example
+!**/.env.example
+.DS_Store
+npm-debug.log*
