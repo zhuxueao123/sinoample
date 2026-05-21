@@ -34,6 +34,9 @@ services:
       NODE_ENV: production
     ports:
       - "1337:1337"
+    volumes:
+      - strapi-uploads:/app/apps/cms/public/uploads
 
 volumes:
   postgres-data:
+  strapi-uploads:
