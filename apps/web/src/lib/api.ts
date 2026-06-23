@@ -57,9 +57,7 @@ export type SiteSettingSectionView = {
 };
 
 export type SiteSettingsView = {
-  aboutPageTitle: string;
-  aboutPageIntro: string;
-  aboutSections: SiteSettingSectionView[];
+  aboutPageContent: string;
   contactPageTitle: string;
   contactPageIntro: string;
   salesContactTitle: string;
@@ -154,12 +152,10 @@ export async function getSiteSettings(): Promise<SiteSettingsView> {
   const value = record ? parseJson<Record<string, unknown>>(record.value_json, {}) : {};
 
   return {
-    aboutPageTitle: String(value.about_page_title ?? "About Sino Ample"),
-    aboutPageIntro: String(
-      value.about_page_intro ??
-        "Sino Ample is planned as a global B2B vending machine supplier website for product presentation, company credibility, and qualified sales inquiries."
+    aboutPageContent: String(
+      value.about_page_content ??
+        "<p>Sino Ample is planned as a global B2B vending machine supplier website for product presentation, company credibility, and qualified sales inquiries.</p>"
     ),
-    aboutSections: parseSections(value.about_sections),
     contactPageTitle: String(value.contact_page_title ?? "Contact Us"),
     contactPageIntro: String(
       value.contact_page_intro ??
@@ -253,22 +249,4 @@ function normalizeMediaUrl(value: unknown): string | null {
 function nullableString(value: unknown): string | null {
   const text = String(value ?? "").trim();
   return text ? text : null;
-}
-
-function parseSections(value: unknown): SiteSettingSectionView[] {
-  const fallback = [
-    { title: "Company Profile", body: "This content will be maintained in Strapi and published to the front-end read database for fast global access." },
-    { title: "Production Capacity", body: "This content will be maintained in Strapi and published to the front-end read database for fast global access." },
-    { title: "Quality Control", body: "This content will be maintained in Strapi and published to the front-end read database for fast global access." },
-  ];
-
-  const rows = Array.isArray(value) ? value : [];
-  const sections = rows
-    .map((row) => ({
-      title: String((row as Record<string, unknown>)?.title ?? "").trim(),
-      body: String((row as Record<string, unknown>)?.body ?? "").trim(),
-    }))
-    .filter((row) => row.title || row.body);
-
-  return sections.length ? sections : fallback;
 }

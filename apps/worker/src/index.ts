@@ -379,6 +379,11 @@ async function upsertEntity(env: Env, entity: string, record: Record<string, unk
 }
 
 async function deleteEntity(env: Env, entity: string, payload: SyncPayload) {
+  if (entity === "site-setting") {
+    await env.DB.prepare("DELETE FROM site_settings WHERE key = ?").bind("global").run();
+    return;
+  }
+
   const tableByEntity: Record<string, string> = {
     "product-category": "product_categories",
     product: "products",

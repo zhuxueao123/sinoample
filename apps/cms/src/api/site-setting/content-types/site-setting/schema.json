@@ -55,14 +55,8 @@
       "multiple": false,
       "allowedTypes": ["images"]
     },
-    "about_page_title": {
-      "type": "string"
-    },
-    "about_page_intro": {
-      "type": "text"
-    },
-    "about_sections": {
-      "type": "json"
+    "about_page_content": {
+      "type": "richtext"
     },
     "contact_page_title": {
       "type": "string"
