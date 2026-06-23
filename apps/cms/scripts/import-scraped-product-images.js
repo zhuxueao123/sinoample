@@ -96,6 +96,48 @@ async function uploadImage(strapi, url, nameBase, alternativeText) {
   }
 }
 
+async function syncDraftMediaRelations(strapi, documentId) {
+  const rows = await strapi.db.connection("products")
+    .select(["id", "published_at"])
+    .where({ document_id: documentId })
+    .orderBy("id", "asc");
+
+  const draftRow = rows.find((row) => !row.published_at);
+  const publishedRow = rows.find((row) => row.published_at);
+  if (!draftRow || !publishedRow || draftRow.id === publishedRow.id) return false;
+
+  const publishedMedia = await strapi.db.connection("files_related_mph")
+    .select(["file_id", "field", "order"])
+    .where({
+      related_id: publishedRow.id,
+      related_type: productUid
+    })
+    .whereIn("field", ["cover_image", "gallery", "og_image"])
+    .orderBy("id", "asc");
+
+  await strapi.db.connection("files_related_mph")
+    .where({
+      related_id: draftRow.id,
+      related_type: productUid
+    })
+    .whereIn("field", ["cover_image", "gallery", "og_image"])
+    .del();
+
+  if (!publishedMedia.length) return true;
+
+  await strapi.db.connection("files_related_mph").insert(
+    publishedMedia.map((item) => ({
+      file_id: item.file_id,
+      related_id: draftRow.id,
+      related_type: productUid,
+      field: item.field,
+      order: item.order
+    }))
+  );
+
+  return true;
+}
+
 async function main() {
   const inputPath = process.argv[2];
   if (!inputPath) {
@@ -187,6 +229,7 @@ async function main() {
           data,
           status: "published"
         });
+        await syncDraftMediaRelations(app, existing.documentId);
         updated += 1;
       } catch (error) {
         failed += 1;

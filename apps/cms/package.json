@@ -10,6 +10,7 @@
     "dev": "strapi develop",
     "develop": "strapi develop",
     "migrate:uploads:r2": "node scripts/migrate-local-uploads-to-r2.js",
+    "repair:draft-media": "node scripts/repair-product-draft-media.js",
     "start": "strapi start",
     "strapi": "strapi",
     "upgrade": "npx @strapi/upgrade latest",
