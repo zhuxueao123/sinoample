@@ -353,6 +353,16 @@ async function upsertEntity(env: Env, entity: string, record: Record<string, unk
         .run();
       return;
 
+    case "site-setting":
+      await env.DB.prepare(
+        `INSERT INTO site_settings (key, value_json, updated_at)
+         VALUES (?, ?, ?)
+         ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json, updated_at=excluded.updated_at`
+      )
+        .bind("global", json(record), now)
+        .run();
+      return;
+
     case "sales-region-rule":
       await env.DB.prepare(
         `INSERT INTO sales_region_rules (strapi_id, region_name, countries_json, sales_name, sales_email, cc_emails_json, is_default, is_active, sort_order, updated_at)
@@ -376,6 +386,7 @@ async function deleteEntity(env: Env, entity: string, payload: SyncPayload) {
     "blog-category": "blog_categories",
     "blog-post": "blog_posts",
     faq: "faqs",
+    "site-setting": "site_settings",
     "sales-region-rule": "sales_region_rules"
   };
   const table = tableByEntity[entity];

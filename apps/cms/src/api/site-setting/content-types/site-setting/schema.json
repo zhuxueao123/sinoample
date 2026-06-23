@@ -55,6 +55,24 @@
       "multiple": false,
       "allowedTypes": ["images"]
     },
+    "about_page_title": {
+      "type": "string"
+    },
+    "about_page_intro": {
+      "type": "text"
+    },
+    "about_sections": {
+      "type": "json"
+    },
+    "contact_page_title": {
+      "type": "string"
+    },
+    "contact_page_intro": {
+      "type": "text"
+    },
+    "sales_contact_title": {
+      "type": "string"
+    },
     "privacy_policy_content": {
       "type": "richtext"
     },

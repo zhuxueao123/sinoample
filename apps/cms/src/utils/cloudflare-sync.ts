@@ -7,6 +7,7 @@ type SyncEntity =
   | 'blog-category'
   | 'blog-post'
   | 'faq'
+  | 'site-setting'
   | 'sales-region-rule';
 
 const uidToEntity: Record<string, SyncEntity> = {
@@ -16,6 +17,7 @@ const uidToEntity: Record<string, SyncEntity> = {
   'api::blog-category.blog-category': 'blog-category',
   'api::blog-post.blog-post': 'blog-post',
   'api::faq.faq': 'faq',
+  'api::site-setting.site-setting': 'site-setting',
   'api::sales-region-rule.sales-region-rule': 'sales-region-rule',
 };
 
@@ -167,6 +169,32 @@ function normalizeRecord(entity: SyncEntity, record: any) {
       seo_title: record.seo_title,
       seo_description: record.seo_description,
       og_image_url: mediaUrl(record.og_image),
+    };
+  }
+
+  if (entity === 'site-setting') {
+    return {
+      ...base,
+      site_name: record.site_name,
+      default_seo_title: record.default_seo_title,
+      default_seo_description: record.default_seo_description,
+      logo_url: mediaUrl(record.logo),
+      footer_logo_url: mediaUrl(record.footer_logo),
+      contact_email: record.contact_email,
+      whatsapp: record.whatsapp,
+      phone: record.phone,
+      address: record.address,
+      business_hours: record.business_hours,
+      social_links: record.social_links,
+      default_og_image_url: mediaUrl(record.default_og_image),
+      about_page_title: record.about_page_title,
+      about_page_intro: record.about_page_intro,
+      about_sections: record.about_sections,
+      contact_page_title: record.contact_page_title,
+      contact_page_intro: record.contact_page_intro,
+      sales_contact_title: record.sales_contact_title,
+      privacy_policy_content: record.privacy_policy_content,
+      terms_content: record.terms_content,
     };
   }
 
