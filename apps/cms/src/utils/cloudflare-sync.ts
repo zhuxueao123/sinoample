@@ -1,3 +1,5 @@
+import { resolveMediaUrl } from './media-url';
+
 type SyncEntity =
   | 'product-category'
   | 'product'
@@ -176,19 +178,10 @@ function normalizeRecord(entity: SyncEntity, record: any) {
 }
 
 function mediaUrl(media: any) {
-  const url = media?.url;
-  if (!url) return null;
-  if (url.startsWith('http://') || url.startsWith('https://')) return url;
-
-  const publicUrl = process.env.PUBLIC_URL;
-  if (url.startsWith('/uploads/') && publicUrl) {
-    return `${publicUrl.replace(/\/+$/, '')}${url}`;
-  }
-
-  return url;
+  return resolveMediaUrl(media?.url);
 }
 
 function mediaUrls(media: any) {
   if (!Array.isArray(media)) return [];
-  return media.map((item) => item.url).filter(Boolean);
+  return media.map((item) => resolveMediaUrl(item?.url)).filter(Boolean);
 }

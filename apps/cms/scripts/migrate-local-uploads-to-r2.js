@@ -26,7 +26,11 @@ for (const name of requiredEnv) {
 const uploadsDir = process.env.UPLOADS_DIR || path.resolve(__dirname, '../public/uploads');
 const rootPath = trimSlashes(process.env.R2_ROOT_PATH || 'cms');
 const keyPrefix = rootPath ? `${rootPath}/uploads` : 'uploads';
-const urlPrefix = rootPath ? `/${rootPath}/uploads` : '/uploads';
+const publicBaseUrl = trimTrailingSlash(process.env.R2_PUBLIC_URL || '');
+const urlPrefix = publicBaseUrl
+  ? `${publicBaseUrl}/${keyPrefix}`
+  : `/${keyPrefix}`;
+const legacyUrlPrefix = `/${keyPrefix}`;
 
 const s3 = dryRun ? null : new S3Client({
   endpoint: process.env.R2_ENDPOINT,
@@ -70,22 +74,49 @@ async function main() {
   try {
     await client.query('BEGIN');
     const before = await client.query(
-      "SELECT count(*)::int AS count FROM files WHERE provider = 'local' OR url LIKE '/uploads/%'"
+      `SELECT count(*)::int AS count
+       FROM files
+       WHERE provider = 'local'
+          OR url LIKE '/uploads/%'
+          OR url LIKE $1
+          OR preview_url LIKE '/uploads/%'
+          OR preview_url LIKE $1
+          OR formats::text LIKE '%"/uploads/%'
+          OR formats::text LIKE $2`,
+      [`${legacyUrlPrefix}/%`, `%"${legacyUrlPrefix}/%`]
     );
 
     if (!dryRun) {
       await client.query(
         `UPDATE files
          SET provider = 'aws-s3',
-             url = CASE WHEN url LIKE '/uploads/%' THEN $1 || substring(url from 9) ELSE url END,
-             preview_url = CASE WHEN preview_url LIKE '/uploads/%' THEN $1 || substring(preview_url from 9) ELSE preview_url END,
+             url = CASE
+               WHEN url LIKE '/uploads/%' THEN $1 || substring(url from 9)
+               WHEN url LIKE $2 THEN $1 || substring(url from $3)
+               ELSE url
+             END,
+             preview_url = CASE
+               WHEN preview_url LIKE '/uploads/%' THEN $1 || substring(preview_url from 9)
+               WHEN preview_url LIKE $2 THEN $1 || substring(preview_url from $3)
+               ELSE preview_url
+             END,
              formats = CASE
                WHEN formats IS NULL THEN formats
-               ELSE replace(formats::text, '"/uploads/', '"' || $1 || '/')::jsonb
+               ELSE replace(
+                 replace(formats::text, '"/uploads/', '"' || $1 || '/'),
+                 '"' || $4 || '/',
+                 '"' || $1 || '/'
+               )::jsonb
              END,
              updated_at = now()
-         WHERE provider = 'local' OR url LIKE '/uploads/%' OR preview_url LIKE '/uploads/%' OR formats::text LIKE '%"/uploads/%'`,
-        [urlPrefix]
+         WHERE provider = 'local'
+            OR url LIKE '/uploads/%'
+            OR url LIKE $2
+            OR preview_url LIKE '/uploads/%'
+            OR preview_url LIKE $2
+            OR formats::text LIKE '%"/uploads/%'
+            OR formats::text LIKE $5`,
+        [urlPrefix, `${legacyUrlPrefix}/%`, legacyUrlPrefix.length + 2, legacyUrlPrefix, `%"${legacyUrlPrefix}/%`]
       );
     }
 
@@ -120,6 +151,10 @@ function listFiles(dir) {
 
 function trimSlashes(value) {
   return value.replace(/^\/+|\/+$/g, '');
+}
+
+function trimTrailingSlash(value) {
+  return value.replace(/\/+$/g, '');
 }
 
 function contentType(filePath) {
