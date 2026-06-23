@@ -6,6 +6,7 @@ out
 .wrangler
 .strapi
 .tmp
+tmp/
 .env
 .env.*
 !.env.example
