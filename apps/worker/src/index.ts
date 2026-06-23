@@ -3,10 +3,14 @@ type Env = {
   ADMIN_API_TOKEN: string;
   SYNC_SECRET?: string;
   ZOHO_API_BASE_URL: string;
+  ZOHO_ACCOUNTS_BASE_URL?: string;
   ZOHO_ACCOUNT_ID: string;
   ZOHO_FROM_EMAIL: string;
   DEFAULT_SALES_EMAIL: string;
   ZOHO_ACCESS_TOKEN?: string;
+  ZOHO_CLIENT_ID?: string;
+  ZOHO_CLIENT_SECRET?: string;
+  ZOHO_REFRESH_TOKEN?: string;
   TURNSTILE_SECRET_KEY?: string;
 };
 
@@ -47,6 +51,11 @@ const jsonHeaders = {
   "access-control-allow-origin": "*",
   "access-control-allow-methods": "GET,POST,PATCH,OPTIONS",
   "access-control-allow-headers": "content-type,authorization"
+};
+
+const publicCacheHeaders = {
+  ...jsonHeaders,
+  "cache-control": "public, s-maxage=300, stale-while-revalidate=600"
 };
 
 export default {
@@ -146,7 +155,7 @@ export default {
 async function listPublicRows(env: Env, table: string, where: string, orderBy: string) {
   assertKnownTable(table);
   const rows = await env.DB.prepare(`SELECT * FROM ${table} WHERE ${where} ORDER BY ${orderBy}`).all();
-  return Response.json({ data: rows.results ?? [] }, { headers: jsonHeaders });
+  return Response.json({ data: rows.results ?? [] }, { headers: publicCacheHeaders });
 }
 
 async function getProduct(env: Env, categorySlug: string, productSlug: string) {
@@ -156,7 +165,7 @@ async function getProduct(env: Env, categorySlug: string, productSlug: string) {
     .bind(decodeURIComponent(categorySlug), decodeURIComponent(productSlug))
     .first();
   return row
-    ? Response.json({ data: row }, { headers: jsonHeaders })
+    ? Response.json({ data: row }, { headers: publicCacheHeaders })
     : Response.json({ error: "Not found" }, { status: 404, headers: jsonHeaders });
 }
 
@@ -164,7 +173,7 @@ async function getBySlug(env: Env, table: string, slug: string) {
   assertKnownTable(table);
   const row = await env.DB.prepare(`SELECT * FROM ${table} WHERE slug = ? LIMIT 1`).bind(slug).first();
   return row
-    ? Response.json({ data: row }, { headers: jsonHeaders })
+    ? Response.json({ data: row }, { headers: publicCacheHeaders })
     : Response.json({ error: "Not found" }, { status: 404, headers: jsonHeaders });
 }
 
@@ -271,25 +280,36 @@ async function syncEntity(request: Request, env: Env, entity: string) {
 
 async function upsertEntity(env: Env, entity: string, record: Record<string, unknown>) {
   const now = new Date().toISOString();
+  const strapiId = num(record.strapi_id);
 
   switch (entity) {
     case "product-category":
+      await env.DB.prepare(
+        "UPDATE product_categories SET strapi_id = ? WHERE strapi_id IS NULL AND slug = ?"
+      )
+        .bind(strapiId, str(record.slug))
+        .run();
       await env.DB.prepare(
         `INSERT INTO product_categories (strapi_id, name, slug, description, cover_image_url, sort_order, seo_title, seo_description, is_active, updated_at)
          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
          ON CONFLICT(strapi_id) DO UPDATE SET name=excluded.name, slug=excluded.slug, description=excluded.description, cover_image_url=excluded.cover_image_url, sort_order=excluded.sort_order, seo_title=excluded.seo_title, seo_description=excluded.seo_description, is_active=excluded.is_active, updated_at=excluded.updated_at`
       )
-        .bind(num(record.strapi_id), str(record.name), str(record.slug), nullable(record.description), nullable(record.cover_image_url), num(record.sort_order, 0), nullable(record.seo_title), nullable(record.seo_description), bool(record.is_active, true), now)
+        .bind(strapiId, str(record.name), str(record.slug), nullable(record.description), nullable(record.cover_image_url), num(record.sort_order, 0), nullable(record.seo_title), nullable(record.seo_description), bool(record.is_active, true), now)
         .run();
       return;
 
     case "product":
       await env.DB.prepare(
-        `INSERT INTO products (strapi_id, category_id, category_slug, name, slug, model_number, short_description, overview, cover_image_url, gallery_json, video_url, key_features_json, specifications_json, payment_options_json, capacity, cooling_heating_system, dimensions, weight, power_supply, screen_options_json, network_options_json, custom_branding_options_json, recommended_solution_ids_json, is_featured, sort_order, seo_title, seo_description, og_image_url, published_at, updated_at)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-         ON CONFLICT(strapi_id) DO UPDATE SET category_id=excluded.category_id, category_slug=excluded.category_slug, name=excluded.name, slug=excluded.slug, model_number=excluded.model_number, short_description=excluded.short_description, overview=excluded.overview, cover_image_url=excluded.cover_image_url, gallery_json=excluded.gallery_json, video_url=excluded.video_url, key_features_json=excluded.key_features_json, specifications_json=excluded.specifications_json, payment_options_json=excluded.payment_options_json, capacity=excluded.capacity, cooling_heating_system=excluded.cooling_heating_system, dimensions=excluded.dimensions, weight=excluded.weight, power_supply=excluded.power_supply, screen_options_json=excluded.screen_options_json, network_options_json=excluded.network_options_json, custom_branding_options_json=excluded.custom_branding_options_json, recommended_solution_ids_json=excluded.recommended_solution_ids_json, is_featured=excluded.is_featured, sort_order=excluded.sort_order, seo_title=excluded.seo_title, seo_description=excluded.seo_description, og_image_url=excluded.og_image_url, published_at=excluded.published_at, updated_at=excluded.updated_at`
+        "UPDATE products SET strapi_id = ? WHERE strapi_id IS NULL AND category_slug = ? AND slug = ?"
       )
-        .bind(num(record.strapi_id), nullableNum(record.category_id), str(record.category_slug), str(record.name), str(record.slug), nullable(record.model_number), nullable(record.short_description), nullable(record.overview), nullable(record.cover_image_url), json(record.gallery_json ?? record.gallery), nullable(record.video_url), json(record.key_features_json ?? record.key_features), json(record.specifications_json ?? record.specifications), json(record.payment_options_json ?? record.payment_options), nullable(record.capacity), nullable(record.cooling_heating_system), nullable(record.dimensions), nullable(record.weight), nullable(record.power_supply), json(record.screen_options_json ?? record.screen_options), json(record.network_options_json ?? record.network_options), json(record.custom_branding_options_json ?? record.custom_branding_options), json(record.recommended_solution_ids_json ?? record.recommended_solution_ids), bool(record.is_featured), num(record.sort_order, 0), nullable(record.seo_title), nullable(record.seo_description), nullable(record.og_image_url), nullable(record.published_at), now)
+        .bind(strapiId, str(record.category_slug), str(record.slug))
+        .run();
+      await env.DB.prepare(
+        `INSERT INTO products (strapi_id, category_id, category_slug, name, slug, model_number, delivery, minimum_order_quantity, supply_ability, country_of_origin, stock_time, source_site, source_url, short_description, overview, cover_image_url, gallery_json, video_url, key_features_json, specifications_json, payment_options_json, capacity, cooling_heating_system, dimensions, weight, power_supply, screen_options_json, network_options_json, custom_branding_options_json, recommended_solution_ids_json, is_featured, sort_order, seo_title, seo_description, og_image_url, published_at, updated_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+         ON CONFLICT(strapi_id) DO UPDATE SET category_id=excluded.category_id, category_slug=excluded.category_slug, name=excluded.name, slug=excluded.slug, model_number=excluded.model_number, delivery=excluded.delivery, minimum_order_quantity=excluded.minimum_order_quantity, supply_ability=excluded.supply_ability, country_of_origin=excluded.country_of_origin, stock_time=excluded.stock_time, source_site=excluded.source_site, source_url=excluded.source_url, short_description=excluded.short_description, overview=excluded.overview, cover_image_url=excluded.cover_image_url, gallery_json=excluded.gallery_json, video_url=excluded.video_url, key_features_json=excluded.key_features_json, specifications_json=excluded.specifications_json, payment_options_json=excluded.payment_options_json, capacity=excluded.capacity, cooling_heating_system=excluded.cooling_heating_system, dimensions=excluded.dimensions, weight=excluded.weight, power_supply=excluded.power_supply, screen_options_json=excluded.screen_options_json, network_options_json=excluded.network_options_json, custom_branding_options_json=excluded.custom_branding_options_json, recommended_solution_ids_json=excluded.recommended_solution_ids_json, is_featured=excluded.is_featured, sort_order=excluded.sort_order, seo_title=excluded.seo_title, seo_description=excluded.seo_description, og_image_url=excluded.og_image_url, published_at=excluded.published_at, updated_at=excluded.updated_at`
+      )
+        .bind(strapiId, nullableNum(record.category_id), str(record.category_slug), str(record.name), str(record.slug), nullable(record.model_number), nullable(record.delivery), nullable(record.minimum_order_quantity), nullable(record.supply_ability), nullable(record.country_of_origin), nullable(record.stock_time), nullable(record.source_site), nullable(record.source_url), nullable(record.short_description), nullable(record.overview), nullable(record.cover_image_url), json(record.gallery_json ?? record.gallery), nullable(record.video_url), json(record.key_features_json ?? record.key_features), json(record.specifications_json ?? record.specifications), json(record.payment_options_json ?? record.payment_options), nullable(record.capacity), nullable(record.cooling_heating_system), nullable(record.dimensions), nullable(record.weight), nullable(record.power_supply), json(record.screen_options_json ?? record.screen_options), json(record.network_options_json ?? record.network_options), json(record.custom_branding_options_json ?? record.custom_branding_options), json(record.recommended_solution_ids_json ?? record.recommended_solution_ids), bool(record.is_featured), num(record.sort_order, 0), nullable(record.seo_title), nullable(record.seo_description), nullable(record.og_image_url), nullable(record.published_at), now)
         .run();
       return;
 
@@ -444,9 +464,10 @@ async function matchSalesRule(env: Env, country: string) {
 
 async function sendInquiryEmail(env: Env, inquiry: Record<string, unknown>, salesRule: SalesRule | null) {
   const toEmail = salesRule?.sales_email ?? env.DEFAULT_SALES_EMAIL;
+  const accessToken = await getZohoAccessToken(env);
 
-  if (!env.ZOHO_ACCESS_TOKEN || env.ZOHO_ACCESS_TOKEN.startsWith("replace")) {
-    await markEmailSkipped(env, inquiry.id as number, "Zoho access token is not configured");
+  if (!accessToken) {
+    await markEmailSkipped(env, inquiry.id as number, "Zoho OAuth credentials are not configured");
     return;
   }
 
@@ -468,7 +489,7 @@ async function sendInquiryEmail(env: Env, inquiry: Record<string, unknown>, sale
     {
       method: "POST",
       headers: {
-        authorization: `Zoho-oauthtoken ${env.ZOHO_ACCESS_TOKEN}`,
+        authorization: `Zoho-oauthtoken ${accessToken}`,
         "content-type": "application/json"
       },
       body: JSON.stringify({
@@ -493,6 +514,42 @@ async function sendInquiryEmail(env: Env, inquiry: Record<string, unknown>, sale
   )
     .bind(new Date().toISOString(), result.data?.messageId ?? null, new Date().toISOString(), inquiry.id)
     .run();
+}
+
+async function getZohoAccessToken(env: Env) {
+  if (
+    env.ZOHO_REFRESH_TOKEN &&
+    env.ZOHO_CLIENT_ID &&
+    env.ZOHO_CLIENT_SECRET &&
+    !env.ZOHO_REFRESH_TOKEN.startsWith("replace")
+  ) {
+    const accountsBaseUrl = env.ZOHO_ACCOUNTS_BASE_URL ?? "https://accounts.zoho.com";
+    const body = new URLSearchParams({
+      refresh_token: env.ZOHO_REFRESH_TOKEN,
+      client_id: env.ZOHO_CLIENT_ID,
+      client_secret: env.ZOHO_CLIENT_SECRET,
+      grant_type: "refresh_token"
+    });
+
+    const response = await fetch(`${accountsBaseUrl}/oauth/v2/token`, {
+      method: "POST",
+      headers: { "content-type": "application/x-www-form-urlencoded" },
+      body
+    });
+
+    if (!response.ok) {
+      return null;
+    }
+
+    const result = (await response.json()) as { access_token?: string };
+    return result.access_token ?? null;
+  }
+
+  if (env.ZOHO_ACCESS_TOKEN && !env.ZOHO_ACCESS_TOKEN.startsWith("replace")) {
+    return env.ZOHO_ACCESS_TOKEN;
+  }
+
+  return null;
 }
 
 async function markEmailSkipped(env: Env, id: number, message: string) {

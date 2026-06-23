@@ -1,20 +1,36 @@
 "use client";
 
 import Script from "next/script";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Send } from "lucide-react";
 import { countries, productCategories } from "@/lib/data";
+import { getProductCategories, type ProductCategoryView } from "@/lib/api";
 
 export function QuoteForm({ compact = false }: { compact?: boolean }) {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
+  const [categories, setCategories] = useState<ProductCategoryView[]>([]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    getProductCategories().then((nextCategories) => {
+      if (cancelled) return;
+      setCategories(nextCategories);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const formElement = event.currentTarget;
     setStatus("sending");
     setMessage("");
 
-    const form = new FormData(event.currentTarget);
+    const form = new FormData(formElement);
     const payload = {
       sourcePage: window.location.pathname,
       sourceType: "website_form",
@@ -32,7 +48,7 @@ export function QuoteForm({ compact = false }: { compact?: boolean }) {
     };
 
     try {
-      const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8787";
+      const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL ?? "https://api.sinoample.shop";
       const response = await fetch(`${apiBaseUrl}/api/inquiries`, {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -43,7 +59,7 @@ export function QuoteForm({ compact = false }: { compact?: boolean }) {
         throw new Error("Inquiry submission failed");
       }
 
-      event.currentTarget.reset();
+      formElement.reset();
       setStatus("success");
       setMessage("Your inquiry has been submitted. Our sales team will contact you soon.");
     } catch {
@@ -53,7 +69,7 @@ export function QuoteForm({ compact = false }: { compact?: boolean }) {
   }
 
   return (
-    <form className="panel" onSubmit={handleSubmit} aria-label="Quote request form">
+    <form className={`panel quote-form${compact ? " compact" : ""}`} onSubmit={handleSubmit} aria-label="Quote request form">
       {process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ? (
         <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer />
       ) : null}
@@ -91,7 +107,7 @@ export function QuoteForm({ compact = false }: { compact?: boolean }) {
             <option value="" disabled>
               Select product type
             </option>
-            {productCategories.map((category) => (
+            {(categories.length ? categories : productCategories).map((category) => (
               <option key={category.slug}>{category.name}</option>
             ))}
           </select>

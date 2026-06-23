@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Mail, Send } from "lucide-react";
 
 export function SiteHeader() {
@@ -6,8 +7,14 @@ export function SiteHeader() {
     <header className="topbar">
       <nav className="container nav" aria-label="Primary navigation">
         <Link href="/" className="brand" aria-label="Sino Ample home">
-          <span className="brand-mark">SA</span>
-          <span>Sino Ample</span>
+          <Image
+            className="brand-logo"
+            src="/images/logo.png"
+            alt="Sino Ample"
+            width={1398}
+            height={1016}
+            priority
+          />
         </Link>
         <div className="nav-links">
           <Link href="/products">Products</Link>

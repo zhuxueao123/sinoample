@@ -30,6 +30,27 @@
     "model_number": {
       "type": "string"
     },
+    "delivery": {
+      "type": "string"
+    },
+    "minimum_order_quantity": {
+      "type": "string"
+    },
+    "supply_ability": {
+      "type": "string"
+    },
+    "country_of_origin": {
+      "type": "string"
+    },
+    "stock_time": {
+      "type": "string"
+    },
+    "source_site": {
+      "type": "string"
+    },
+    "source_url": {
+      "type": "string"
+    },
     "short_description": {
       "type": "text"
     },

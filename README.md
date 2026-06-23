@@ -73,6 +73,9 @@ Worker secrets to configure before production:
 
 ```bash
 wrangler secret put ZOHO_ACCESS_TOKEN
+wrangler secret put ZOHO_CLIENT_ID
+wrangler secret put ZOHO_CLIENT_SECRET
+wrangler secret put ZOHO_REFRESH_TOKEN
 wrangler secret put TURNSTILE_SECRET_KEY
 ```
 

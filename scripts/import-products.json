@@ -1,0 +1,402 @@
+{
+  "generatedAt": "2026-05-21T08:32:21.200Z",
+  "categories": [
+    {
+      "slug": "locker-vending-machines",
+      "name": "Locker Vending Machines",
+      "description": "Smart locker-based vending units for ambient and controlled product pickup workflows."
+    },
+    {
+      "slug": "pet-vending-stations",
+      "name": "Pet Vending Stations",
+      "description": "Automated vending and service stations for pet food, treats, and related services."
+    }
+  ],
+  "products": [
+    {
+      "categorySlug": "locker-vending-machines",
+      "name": "Locker + control",
+      "slug": "locker-control",
+      "modelNumber": null,
+      "shortDescription": "Ambient Locker Vending machine",
+      "overview": "Ambient Locker Vending machine\nScreen:21.5 inch screen\nCapacity:15 lockers\nPayment System: Not include\nRefrigeration system：Without\nSmart venidng system",
+      "dimensions": "",
+      "keyFeatures": [
+        "1. Multiple purchase offer discount feature",
+        "2. Promotion product feature",
+        "3. Remote upload advertisement",
+        "4. Remote on/off AC and lighting",
+        "5. Real time inventory",
+        "6. Real time sales data",
+        "7 Support shopping cart",
+        "8. Can upload company logo and service number.",
+        "9. Sub account setting",
+        "10. Software remote upgrade"
+      ],
+      "specifications": [
+        [
+          "Price (1-4 units, USD)",
+          "2438.46"
+        ],
+        [
+          "Price (5-9 units, USD)",
+          "1776.92"
+        ],
+        [
+          "Price (10-29 units, USD)",
+          "1611.54"
+        ],
+        [
+          "Price (30+ units, USD)",
+          "1480"
+        ]
+      ]
+    },
+    {
+      "categorySlug": "locker-vending-machines",
+      "name": "Stand alone locker as slave box",
+      "slug": "stand-alone-locker-as-slave-box",
+      "modelNumber": null,
+      "shortDescription": "Ambient Locker as slave box",
+      "overview": "Ambient Locker as slave box\nCapacity:16 lockers",
+      "dimensions": "",
+      "keyFeatures": [],
+      "specifications": [
+        [
+          "Price (1-4 units, USD)",
+          "1636.92"
+        ],
+        [
+          "Price (5-9 units, USD)",
+          "1353.85"
+        ],
+        [
+          "Price (10-29 units, USD)",
+          "1196.92"
+        ],
+        [
+          "Price (30+ units, USD)",
+          "1024.62"
+        ]
+      ]
+    },
+    {
+      "categorySlug": "locker-vending-machines",
+      "name": "WM22-W PPE",
+      "slug": "wm22-w",
+      "modelNumber": "WM22-W",
+      "shortDescription": "Spiral + Locker",
+      "overview": "Spiral + Locker\nScreen:21.5 inch touch screen\nCapacity:6 floors, 9 slots per floor\nPayment System: Not include\nRefrigeration system：3-20℃\nWith R290 efficient & green gas\nWith wheel\nFull glass door （More beautiful and better insulated）\nWith 8 lockers at the side\nWith 4G/WIFI Module\nOrder 5 machines above can be black color",
+      "dimensions": "W128×D83×H198",
+      "keyFeatures": [
+        "1. Multiple purchase offer discount feature",
+        "2. Promotion product feature",
+        "3. Remote upload advertisement",
+        "4. Remote on/off AC and lighting",
+        "5. Real time inventory",
+        "6. Real time sales data",
+        "7 Support shopping cart",
+        "8. Can upload company logo and service number.",
+        "9. Sub account setting",
+        "10. Software remote upgrade"
+      ],
+      "specifications": [
+        [
+          "Dimensions",
+          "W128×D83×H198"
+        ],
+        [
+          "Price (1-4 units, USD)",
+          "2777.69"
+        ],
+        [
+          "Price (5-9 units, USD)",
+          "2406.23"
+        ],
+        [
+          "Price (10-29 units, USD)",
+          "2131.76"
+        ],
+        [
+          "Price (30+ units, USD)",
+          "1841.91"
+        ]
+      ]
+    },
+    {
+      "categorySlug": "pet-vending-stations",
+      "name": "Dog washing machine",
+      "slug": "dog-washing-machine",
+      "modelNumber": null,
+      "shortDescription": "Screen:21.5 inch touch screen +32 inch LCD screen",
+      "overview": "Screen:21.5 inch touch screen +32 inch LCD screen\nPayment System: Not include\n304 Stainless steel\nWith 4G/WIFI Module\nSupport selet time package.\nWith shampoo, conditioner, Disinfectant water, warm water, High speed dryer.",
+      "dimensions": "",
+      "keyFeatures": [
+        "1. Remote upload advertisement",
+        "2. Display time count down",
+        "3. Sub account setting"
+      ],
+      "specifications": [
+        [
+          "Price (1-4 units, USD)",
+          "5360"
+        ],
+        [
+          "Price (5-9 units, USD)",
+          "4461.54"
+        ],
+        [
+          "Price (10-29 units, USD)",
+          "4092.31"
+        ],
+        [
+          "Price (30+ units, USD)",
+          "3969.23"
+        ]
+      ]
+    },
+    {
+      "categorySlug": "locker-vending-machines",
+      "name": "WM22-G Cooling locker 6 lockers",
+      "slug": "wm22-g-6",
+      "modelNumber": "WM22-G",
+      "shortDescription": "Locker in the fridge.",
+      "overview": "Locker in the fridge.\nScreen:21.5 inch screen\nCapacity: Standard is 6 lockers,can be customized\nPayment System: Not include\nMachandise Vairety:Max.40\nRefrigeration system：3-20°C （adjustable)\nR290 green gas\nWith 4G/WIFI Module",
+      "dimensions": "W166*D71*H217",
+      "keyFeatures": [],
+      "specifications": [
+        [
+          "Dimensions",
+          "W166*D71*H217"
+        ],
+        [
+          "Price (1-4 units, USD)",
+          "3067.16"
+        ],
+        [
+          "Price (5-9 units, USD)",
+          "2327.46"
+        ],
+        [
+          "Price (10-29 units, USD)",
+          "2233.13"
+        ],
+        [
+          "Price (30+ units, USD)",
+          "2098.81"
+        ]
+      ]
+    },
+    {
+      "categorySlug": "locker-vending-machines",
+      "name": "Ambient Locker 9 lockers",
+      "slug": "ambient-locker-9-lockers",
+      "modelNumber": null,
+      "shortDescription": "Ambient Locker Vending machine",
+      "overview": "Ambient Locker Vending machine\nScreen:21.5 inch screen\nCapacity:9 lockers\nPayment System: Not include\nRefrigeration system：Without\nSmart venidng system",
+      "dimensions": "",
+      "keyFeatures": [
+        "1. Multiple purchase offer discount feature",
+        "2. Promotion product feature",
+        "3. Remote upload advertisement",
+        "4. Remote on/off AC and lighting",
+        "5. Real time inventory",
+        "6. Real time sales data",
+        "7 Support shopping cart",
+        "8. Can upload company logo and service number.",
+        "9. Sub account setting",
+        "10. Software remote upgrade"
+      ],
+      "specifications": [
+        [
+          "Price (1-4 units, USD)",
+          "2432.84"
+        ],
+        [
+          "Price (5-9 units, USD)",
+          "1723.88"
+        ],
+        [
+          "Price (10-29 units, USD)",
+          "1563.43"
+        ],
+        [
+          "Price (30+ units, USD)",
+          "1435.82"
+        ]
+      ]
+    },
+    {
+      "categorySlug": "locker-vending-machines",
+      "name": "Cooling locker Smalller size",
+      "slug": "cooling-locker-smalller-size",
+      "modelNumber": null,
+      "shortDescription": "Screen:21.5 inch screen",
+      "overview": "Screen:21.5 inch screen\nCapacity: Standard is 10 lockers,can be customized\nPayment System: Not include\nMachandise Vairety:Max.10\nRefrigeration system：3-20°C （adjustable)\nR290 green gas\nWith 4G/WIFI Module",
+      "dimensions": "W109*69*194",
+      "keyFeatures": [
+        "1. Multiple purchase offer discount feature",
+        "2. Promotion product feature",
+        "3. Remote upload advertisement",
+        "4. Remote on/off AC and lighting",
+        "5. Real time inventory",
+        "6. Real time sales data",
+        "7 Support shopping cart",
+        "8. Can upload company logo and service number.",
+        "9. Sub account setting",
+        "10. Software remote upgrade"
+      ],
+      "specifications": [
+        [
+          "Dimensions",
+          "W109*69*194"
+        ],
+        [
+          "Price (1-4 units, USD)",
+          "2080.96"
+        ],
+        [
+          "Price (5-9 units, USD)",
+          "1818.85"
+        ],
+        [
+          "Price (10-29 units, USD)",
+          "1649.27"
+        ],
+        [
+          "Price (30+ units, USD)",
+          "1541.46"
+        ]
+      ]
+    },
+    {
+      "categorySlug": "locker-vending-machines",
+      "name": "Flower vending machine for indoor use",
+      "slug": "flower-vending-machine-for-indoor-use-11",
+      "modelNumber": null,
+      "shortDescription": "Flower vending machine for shopping mall(indoor AC condition)",
+      "overview": "Flower vending machine for shopping mall(indoor AC condition)\nScreen:32 inch touch screen\nCapacity: Standard is 24 lockers,can be customized\nPayment System: Not include\nRefrigeration system：15-20°C （adjustable)\nWith R290 efficient & green gas\nWith 4G/WIFI Module",
+      "dimensions": "W180*D861* H2197",
+      "keyFeatures": [
+        "1. Multiple purchase offer discount feature",
+        "2. Promotion product feature",
+        "3. Remote upload advertisement",
+        "4. Remote on/off AC and lighting",
+        "5. Real time inventory",
+        "6. Real time sales data",
+        "7 Support shopping cart",
+        "8. Can upload company logo and service number.",
+        "9. Sub account setting",
+        "10. Software remote upgrade"
+      ],
+      "specifications": [
+        [
+          "Dimensions",
+          "W180*D861* H2197"
+        ],
+        [
+          "Price (1-4 units, USD)",
+          "6022.39"
+        ],
+        [
+          "Price (5-9 units, USD)",
+          "5111.94"
+        ],
+        [
+          "Price (10-29 units, USD)",
+          "4570.9"
+        ],
+        [
+          "Price (30+ units, USD)",
+          "4291.04"
+        ]
+      ]
+    },
+    {
+      "categorySlug": "locker-vending-machines",
+      "name": "Flower vending machine Transparent door",
+      "slug": "flower-vending-machine-transparent-door-11",
+      "modelNumber": null,
+      "shortDescription": "Flower vending machine for shopping mall(indoor AC condition)",
+      "overview": "Flower vending machine for shopping mall(indoor AC condition)\nScreen:22 inch touch screen\nCapacity: Standard is 32 lockers,can be customized\nPayment System: Not include\nRefrigeration system：5-20°C （adjustable)\nWith R290 efficient & green gas\nWith 4G/WIFI Module",
+      "dimensions": "W280*D75* H210",
+      "keyFeatures": [
+        "1. Multiple purchase offer discount feature",
+        "2. Promotion product feature",
+        "3. Remote upload advertisement",
+        "4. Remote on/off AC and lighting",
+        "5. Real time inventory",
+        "6. Real time sales data",
+        "7 Support shopping cart",
+        "8. Can upload company logo and service number.",
+        "9. Sub account setting",
+        "10. Software remote upgrade"
+      ],
+      "specifications": [
+        [
+          "Dimensions",
+          "W280*D75* H210"
+        ],
+        [
+          "Price (1-4 units, USD)",
+          "4884.62"
+        ],
+        [
+          "Price (5-9 units, USD)",
+          "4423.08"
+        ],
+        [
+          "Price (10-29 units, USD)",
+          "4134.62"
+        ],
+        [
+          "Price (30+ units, USD)",
+          "3730.77"
+        ]
+      ]
+    },
+    {
+      "categorySlug": "locker-vending-machines",
+      "name": "Flower vending machine",
+      "slug": "flower-vending-machine",
+      "modelNumber": null,
+      "shortDescription": "Screen:32 inch touch screen",
+      "overview": "Screen:32 inch touch screen\nCapacity: Standard is 6+6 lockers,can be customized\nPayment System: Not include\nRefrigeration system：3-20°C （adjustable)\nR290 green gas\nWith 4G/WIFI Module",
+      "dimensions": "W286(335 with roof)*D120(179 with roof)*H197 (215 with roof)",
+      "keyFeatures": [
+        "1. Multiple purchase offer discount feature",
+        "2. Promotion product feature",
+        "3. Remote upload advertisement",
+        "4. Remote on/off AC and lighting",
+        "5. Real time inventory",
+        "6. Real time sales data",
+        "7 Support shopping cart",
+        "8. Can upload company logo and service number.",
+        "9. Sub account setting",
+        "10. Software remote upgrade"
+      ],
+      "specifications": [
+        [
+          "Dimensions",
+          "W286(335 with roof)*D120(179 with roof)*H197 (215 with roof)"
+        ],
+        [
+          "Price (1-4 units, USD)",
+          "7029.85"
+        ],
+        [
+          "Price (5-9 units, USD)",
+          "5087.76"
+        ],
+        [
+          "Price (10-29 units, USD)",
+          "4884.18"
+        ],
+        [
+          "Price (30+ units, USD)",
+          "4511.04"
+        ]
+      ]
+    }
+  ]
+}

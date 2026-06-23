@@ -14,13 +14,15 @@ database_id = "2770a7aa-42c0-461a-a18e-2dc9ac47c0a9"
 
 [vars]
 ZOHO_API_BASE_URL = "https://mail.zoho.com"
-ZOHO_ACCOUNT_ID = "replace-with-zoho-account-id"
+ZOHO_ACCOUNTS_BASE_URL = "https://accounts.zoho.com"
+ZOHO_ACCOUNT_ID = "5097180000000008002"
 ZOHO_FROM_EMAIL = "noreply@sinoample.shop"
 DEFAULT_SALES_EMAIL = "sales@sinoample.shop"
 
 [env.preview.vars]
 ZOHO_API_BASE_URL = "https://mail.zoho.com"
-ZOHO_ACCOUNT_ID = "replace-with-zoho-account-id"
+ZOHO_ACCOUNTS_BASE_URL = "https://accounts.zoho.com"
+ZOHO_ACCOUNT_ID = "5097180000000008002"
 ZOHO_FROM_EMAIL = "noreply@sinoample.shop"
 DEFAULT_SALES_EMAIL = "sales@sinoample.shop"
 
@@ -28,4 +30,7 @@ DEFAULT_SALES_EMAIL = "sales@sinoample.shop"
 # ADMIN_API_TOKEN
 # SYNC_SECRET
 # ZOHO_ACCESS_TOKEN
+# ZOHO_CLIENT_ID
+# ZOHO_CLIENT_SECRET
+# ZOHO_REFRESH_TOKEN
 # TURNSTILE_SECRET_KEY

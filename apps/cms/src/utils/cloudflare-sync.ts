@@ -39,7 +39,6 @@ async function syncEvent(strapi: any, event: any) {
   const record = await strapi.documents(event.model.uid).findOne({
     documentId: event.result.documentId,
     populate: '*',
-    status: 'published',
   }).catch(() => null);
 
   if (!record) {
@@ -89,11 +88,19 @@ function normalizeRecord(entity: SyncEntity, record: any) {
   if (entity === 'product') {
     return {
       ...base,
+      published_at: record.publishedAt ?? record.published_at ?? new Date().toISOString(),
       name: record.name,
       slug: record.slug,
       category_id: record.category?.id,
       category_slug: record.category?.slug ?? '',
       model_number: record.model_number,
+      delivery: record.delivery,
+      minimum_order_quantity: record.minimum_order_quantity,
+      supply_ability: record.supply_ability,
+      country_of_origin: record.country_of_origin,
+      stock_time: record.stock_time,
+      source_site: record.source_site,
+      source_url: record.source_url,
       short_description: record.short_description,
       overview: record.overview,
       cover_image_url: mediaUrl(record.cover_image),
@@ -169,7 +176,16 @@ function normalizeRecord(entity: SyncEntity, record: any) {
 }
 
 function mediaUrl(media: any) {
-  return media?.url ?? null;
+  const url = media?.url;
+  if (!url) return null;
+  if (url.startsWith('http://') || url.startsWith('https://')) return url;
+
+  const publicUrl = process.env.PUBLIC_URL;
+  if (url.startsWith('/uploads/') && publicUrl) {
+    return `${publicUrl.replace(/\/+$/, '')}${url}`;
+  }
+
+  return url;
 }
 
 function mediaUrls(media: any) {

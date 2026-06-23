@@ -1,11 +1,18 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export function SiteFooter() {
   return (
     <footer className="footer">
       <div className="container footer-grid">
         <div>
-          <h3>Sino Ample</h3>
+          <Image
+            className="footer-logo"
+            src="/images/logo.png"
+            alt="Sino Ample"
+            width={1398}
+            height={1016}
+          />
           <p>
             Smart vending machines and B2B vending solutions for operators,
             distributors, and enterprise locations worldwide.

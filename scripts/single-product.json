@@ -1,0 +1,83 @@
+{
+  "generatedAt": "2026-05-29T06:38:47.899Z",
+  "sourceCategoryUrls": [
+    "https://www.micronvending.com/product-Self-Service-Flower-Vending-Machine-Refrigerated-Fresh-Cut-Flowers-Anytim.html"
+  ],
+  "categories": [
+    {
+      "name": "Flower Vending Machines",
+      "slug": "flower-vending-machines",
+      "description": "Temperature-controlled vending systems designed for bouquets and fresh flower retail."
+    }
+  ],
+  "productCount": 1,
+  "products": [
+    {
+      "categorySlug": "flower-vending-machines",
+      "sourceSite": "Micron Vending",
+      "sourceUrl": "https://www.micronvending.com/product-Self-Service-Flower-Vending-Machine-Refrigerated-Fresh-Cut-Flowers-Anytim.html",
+      "name": "24/7 Self-Service Flower Vending Machine – Refrigerated Fresh Cut Flowers Anytim",
+      "slug": "24-7-self-service-flower-vending-machine-refrigerated-fresh-cut-flowers-anytim",
+      "modelNumber": "outdoor flower vending machine",
+      "delivery": "FOB",
+      "minimumOrderQuantity": "1 set",
+      "supplyAbility": "800 set / Month",
+      "countryOfOrigin": "China",
+      "stockTime": "35 Days",
+      "shortDescription": "Discover our 24/7 refrigerated flower vending machine – the perfect solution for florists, parks, subways, and public spaces. Keep fresh cut flowers available anytime with smart self-service technology and advanced cooling to ensure long-lasting freshness.",
+      "overview": "Discover our 24/7 refrigerated flower vending machine – the perfect solution for florists, parks, subways, and public spaces. Keep fresh cut flowers available anytime with smart self-service technology and advanced cooling to ensure long-lasting freshness.",
+      "coverImageUrl": "https://vod.site.joinf.com/5218418803719614/PZT7DmAkY5.png?imageMogr2/format/webp/auto-orient",
+      "gallery": [
+        "https://vod.site.joinf.com/5218418803719614/PZT7DmAkY5.png?imageMogr2/format/webp/auto-orient",
+        "https://vod.site.joinf.com/5196124697348927/ZWmrDAKc8J.png?imageMogr2/format/webp/auto-orient",
+        "https://vod.site.joinf.com/5196124697348927/8b5Eee8xSf.png?imageMogr2/format/webp/auto-orient",
+        "https://vod.site.joinf.com/5196124697348927/r8DAbSRnrs.png?imageMogr2/format/webp/auto-orient",
+        "https://vod.site.joinf.com/5196124697348927/NbS8dFE4rP.png?imageMogr2/format/webp/auto-orient",
+        "https://vod.site.joinf.com/5196124697348927/pDDPtPbP23.png?imageMogr2/format/webp/auto-orient",
+        "https://vod.site.joinf.com/5196124697348927/r6ETHcEFNY.png?imageMogr2/format/webp/auto-orient",
+        "https://vod.site.joinf.com/5196124697348927/xkzmexnZw4.png?imageMogr2/format/webp/auto-orient",
+        "https://vod.site.joinf.com/5196124697348927/PcCPMbenTr.png?imageMogr2/format/webp/auto-orient",
+        "https://vod.site.joinf.com/5196124697348927/Hn83dzyKAr.png?imageMogr2/format/webp/auto-orient",
+        "https://vod.site.joinf.com/5218418803719614/2jFJYENxfc.png?imageMogr2/format/webp/auto-orient",
+        "https://vod.site.joinf.com/5196124697348927/iWepHRSfP7.png?imageMogr2/format/webp/auto-orient",
+        "https://vod.site.joinf.com/5196124697348927/bhNfBCChDF.png?imageMogr2/format/webp/auto-orient",
+        "https://vod.site.joinf.com/5196124697348927/QpbcQQJ4QK.png?imageMogr2/format/webp/auto-orient",
+        "https://vod.site.joinf.com/5218418803719614/j82t5Xk6fQ.png?imageMogr2/format/webp/auto-orient",
+        "https://vod.site.joinf.com/5218418803719614/xcapr5DJRi.png?imageMogr2/format/webp/auto-orient",
+        "https://vod.site.joinf.com/5218418803719614/8dzBKm284A.png?imageMogr2/format/webp/auto-orient"
+      ],
+      "videoUrl": "https://vod.site.joinf.com/5218418803719614/s4NnKWC83x.mp4",
+      "keyFeatures": [
+        "Discover our 24/7 refrigerated flower vending machine – the perfect solution for florists, parks, subways, and public spaces"
+      ],
+      "specifications": [
+        [
+          "Model NO.",
+          "outdoor flower vending machine"
+        ],
+        [
+          "Delivery",
+          "FOB"
+        ],
+        [
+          "Minimum order quantity",
+          "1 set"
+        ],
+        [
+          "Supply Ability",
+          "800 set / Month"
+        ],
+        [
+          "Country of Origin",
+          "China"
+        ],
+        [
+          "Stock Time",
+          "35 Days"
+        ]
+      ],
+      "seoTitle": "24/7 Self-Service Flower Vending Machine – Refrigerated Fresh Cut Flowers Anytim",
+      "seoDescription": "Discover our 24/7 refrigerated flower vending machine – the perfect solution for florists, parks, subways, and public spaces. Keep fresh cut flowers available anytime with smart self-service technology and advanced cooling to ensure long-lasting freshness."
+    }
+  ]
+}

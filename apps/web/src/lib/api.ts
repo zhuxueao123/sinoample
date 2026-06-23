@@ -6,6 +6,7 @@ import {
 } from "./data";
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL ?? "https://api.sinoample.shop";
+const mediaBaseUrl = process.env.NEXT_PUBLIC_MEDIA_BASE_URL ?? "https://media.sinoample.shop";
 
 type ApiList<T> = {
   data?: T[];
@@ -28,6 +29,16 @@ export type ProductView = {
   categorySlug: string;
   category: string;
   description: string;
+  modelNumber: string | null;
+  delivery: string | null;
+  minimumOrderQuantity: string | null;
+  supplyAbility: string | null;
+  countryOfOrigin: string | null;
+  stockTime: string | null;
+  videoUrl: string | null;
+  sourceUrl: string | null;
+  imageUrl: string | null;
+  galleryImages: string[];
   features: string[];
   specs: [string, string][];
 };
@@ -56,6 +67,16 @@ export async function getProducts(): Promise<ProductView[]> {
   const rows = await fetchList<Record<string, unknown>>("/api/products");
   if (!rows.length) return mockProducts.map((product) => ({
     ...product,
+    modelNumber: null,
+    delivery: null,
+    minimumOrderQuantity: null,
+    supplyAbility: null,
+    countryOfOrigin: null,
+    stockTime: null,
+    videoUrl: null,
+    sourceUrl: null,
+    imageUrl: null,
+    galleryImages: [],
     specs: product.specs.map(([label, value]) => [label, value] as [string, string])
   }));
   return rows.map(mapProduct);
@@ -69,7 +90,20 @@ export async function getProduct(categorySlug: string, productSlug: string): Pro
     (item) => item.categorySlug === categorySlug && item.slug === productSlug
   );
   return product
-    ? { ...product, specs: product.specs.map(([label, value]) => [label, value] as [string, string]) }
+    ? {
+      ...product,
+      modelNumber: null,
+      delivery: null,
+      minimumOrderQuantity: null,
+      supplyAbility: null,
+      countryOfOrigin: null,
+      stockTime: null,
+      videoUrl: null,
+      sourceUrl: null,
+      imageUrl: null,
+      galleryImages: [],
+      specs: product.specs.map(([label, value]) => [label, value] as [string, string])
+    }
     : null;
 }
 
@@ -122,6 +156,9 @@ async function fetchItem<T>(path: string): Promise<T | null> {
 function mapProduct(row: Record<string, unknown>): ProductView {
   const features = parseJson<string[]>(row.key_features_json, []);
   const specs = parseJson<Array<[string, string]>>(row.specifications_json, []);
+  const galleryImages = parseJson<string[]>(row.gallery_json, [])
+    .map(normalizeMediaUrl)
+    .filter((url): url is string => Boolean(url));
 
   return {
     name: String(row.name ?? ""),
@@ -129,6 +166,16 @@ function mapProduct(row: Record<string, unknown>): ProductView {
     categorySlug: String(row.category_slug ?? ""),
     category: String(row.category_slug ?? "Product"),
     description: String(row.short_description ?? row.overview ?? ""),
+    modelNumber: nullableString(row.model_number),
+    delivery: nullableString(row.delivery),
+    minimumOrderQuantity: nullableString(row.minimum_order_quantity),
+    supplyAbility: nullableString(row.supply_ability),
+    countryOfOrigin: nullableString(row.country_of_origin),
+    stockTime: nullableString(row.stock_time),
+    videoUrl: nullableString(row.video_url),
+    sourceUrl: nullableString(row.source_url),
+    imageUrl: normalizeMediaUrl(row.cover_image_url),
+    galleryImages,
     features,
     specs
   };
@@ -152,4 +199,17 @@ function parseJson<T>(value: unknown, fallback: T): T {
   } catch {
     return fallback;
   }
+}
+
+function normalizeMediaUrl(value: unknown): string | null {
+  const url = String(value ?? "").trim();
+  if (!url) return null;
+  if (url.startsWith("http://") || url.startsWith("https://")) return url;
+  if (url.startsWith("/")) return `${mediaBaseUrl.replace(/\/+$/, "")}${url}`;
+  return url;
+}
+
+function nullableString(value: unknown): string | null {
+  const text = String(value ?? "").trim();
+  return text ? text : null;
 }
