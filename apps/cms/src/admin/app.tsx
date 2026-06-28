@@ -1,4 +1,5 @@
 import type { StrapiApp } from '@strapi/strapi/admin';
+import { getPluginPresets } from '@_sh/strapi-plugin-ckeditor';
 
 export default {
   config: {
@@ -26,6 +27,12 @@ export default {
         'app.components.LeftMenu.navbrand.workplace': 'Content Management',
       },
     },
+  },
+  register() {
+    const presets = getPluginPresets();
+    if (presets.defaultHtml) {
+      presets.defaultHtml.description = 'HTML rich text editor';
+    }
   },
   bootstrap(_app: StrapiApp) {},
 };

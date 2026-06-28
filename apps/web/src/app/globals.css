@@ -458,6 +458,45 @@ h1 {
   line-height: 1.65;
 }
 
+.rich-text {
+  max-width: 860px;
+  color: var(--muted);
+}
+
+.rich-text > :first-child {
+  margin-top: 0;
+}
+
+.rich-text > :last-child {
+  margin-bottom: 0;
+}
+
+.rich-text h2,
+.rich-text h3,
+.rich-text h4 {
+  color: var(--ink);
+  margin: 28px 0 12px;
+  line-height: 1.2;
+}
+
+.rich-text p,
+.rich-text li {
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.rich-text ul,
+.rich-text ol {
+  margin: 14px 0;
+  padding-left: 24px;
+}
+
+.rich-text a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
 .detail-layout {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.55fr);

@@ -56,7 +56,11 @@
       "allowedTypes": ["images"]
     },
     "about_page_content": {
-      "type": "richtext"
+      "type": "richtext",
+      "customField": "plugin::ckeditor5.CKEditor",
+      "options": {
+        "preset": "defaultHtml"
+      }
     },
     "contact_page_title": {
       "type": "string"

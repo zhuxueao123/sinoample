@@ -4,6 +4,7 @@ import {
   productCategories as mockCategories,
   solutions as mockSolutions
 } from "./data";
+import { normalizeRichTextHtml } from "./rich-text";
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL ?? "https://api.sinoample.shop";
 const mediaBaseUrl = process.env.NEXT_PUBLIC_MEDIA_BASE_URL ?? "https://media.sinoample.shop";
@@ -152,7 +153,7 @@ export async function getSiteSettings(): Promise<SiteSettingsView> {
   const value = record ? parseJson<Record<string, unknown>>(record.value_json, {}) : {};
 
   return {
-    aboutPageContent: String(
+    aboutPageContent: normalizeRichTextHtml(
       value.about_page_content ??
         "<p>Sino Ample is planned as a global B2B vending machine supplier website for product presentation, company credibility, and qualified sales inquiries.</p>"
     ),

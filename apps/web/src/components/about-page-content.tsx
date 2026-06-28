@@ -36,7 +36,7 @@ export function AboutPageContent() {
       <section className="page-title">
         <div className="container">
           <h1>About Sino Ample</h1>
-          <div dangerouslySetInnerHTML={{ __html: settings.aboutPageContent }} />
+          <div className="rich-text" dangerouslySetInnerHTML={{ __html: settings.aboutPageContent }} />
         </div>
       </section>
     </>

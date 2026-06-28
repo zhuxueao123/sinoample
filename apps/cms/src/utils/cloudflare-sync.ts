@@ -1,4 +1,5 @@
 import { resolveMediaUrl } from './media-url';
+import { marked } from 'marked';
 
 type SyncEntity =
   | 'product-category'
@@ -187,12 +188,12 @@ function normalizeRecord(entity: SyncEntity, record: any) {
       business_hours: record.business_hours,
       social_links: record.social_links,
       default_og_image_url: mediaUrl(record.default_og_image),
-      about_page_content: record.about_page_content,
+      about_page_content: richTextToHtml(record.about_page_content),
       contact_page_title: record.contact_page_title,
       contact_page_intro: record.contact_page_intro,
       sales_contact_title: record.sales_contact_title,
-      privacy_policy_content: record.privacy_policy_content,
-      terms_content: record.terms_content,
+      privacy_policy_content: richTextToHtml(record.privacy_policy_content),
+      terms_content: richTextToHtml(record.terms_content),
     };
   }
 
@@ -210,4 +211,17 @@ function mediaUrl(media: any) {
 function mediaUrls(media: any) {
   if (!Array.isArray(media)) return [];
   return media.map((item) => resolveMediaUrl(item?.url)).filter(Boolean);
+}
+
+function richTextToHtml(value: unknown) {
+  if (typeof value !== 'string') return value ?? null;
+
+  const content = value.trim();
+  if (!content) return '';
+
+  if (/<[a-z][\s\S]*>/i.test(content)) {
+    return content;
+  }
+
+  return marked.parse(content) as string;
 }
